@@ -1,0 +1,7 @@
+{
+    "name": "SparkCore_Arduino_AmazonDynamoDB_Sample",
+    "version": "0.0.1",
+    "author": "Jinesh Varia <jvaria@amazon.com>",
+    "license": "Choose a license",
+    "description": "Amazon DynamoDB Client for Spark Core."
+}
