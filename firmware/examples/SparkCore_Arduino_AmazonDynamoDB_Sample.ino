@@ -1,13 +1,13 @@
 // This #include statement was automatically added by the Spark IDE.
-#include "keys.h"
-#include "AmazonDynamoDBClient.h"
-#include "SparkAWSImplementations.h"
-#include "AWSFoundationalTypes.h"
-#include "AWSClient.h"
-#include "Utils.h"
-#include "DeviceIndependentInterfaces.h"
-#include "sha256.h"
-#include "jsmn.h"
+#include "AmazonDynamoDBClient/keys.h"
+#include "AmazonDynamoDBClient/AmazonDynamoDBClient.h"
+#include "AmazonDynamoDBClient/SparkAWSImplementations.h"
+#include "AmazonDynamoDBClient/AWSFoundationalTypes.h"
+#include "AmazonDynamoDBClient/AWSClient.h"
+#include "AmazonDynamoDBClient/Utils.h"
+#include "AmazonDynamoDBClient/DeviceIndependentInterfaces.h"
+#include "AmazonDynamoDBClient/sha256.h"
+#include "AmazonDynamoDBClient/jsmn.h"
 
 /*
  *
@@ -30,9 +30,11 @@ const int SWITCH_PIN = D2;
 
 /* Contants describing DynamoDB table and values being used. */
 static const char* HASH_KEY_NAME = "device_id";
-static const char* HASH_KEY_VALUE = "Spark";
+static const char* HASH_KEY_VALUE = "REPLACE"; //teamname
+static const char* ATTRIBUTE_KEY_NAME = "device";
+static const char* ATTRIBUTE_KEY_VALUE = "spark"; //teamname
 static const char* RANGE_KEY_NAME = "time";
-const char* TABLE_NAME = "AWSArduinoSDKTests";
+const char* TABLE_NAME = "REPLACE"; //dynamodb table name
 /* Constants for connecting to DynamoDB. */
 const char* AWS_REGION = "us-east-1";
 const char* AWS_ENDPOINT = "amazonaws.com";
@@ -68,7 +70,6 @@ void setup() {
 
 void loop() {
 
-    Serial.println("testig");
     int prevSwitchState = switchState;
     /* Read the state of the tilt switch. */
     switchState = digitalRead(SWITCH_PIN);
@@ -81,13 +82,15 @@ void loop() {
         deviceValue.setS(HASH_KEY_VALUE);
         AttributeValue timeValue;
         /* Getting current time for Time attribute. */
-        timeValue.setS(dateTimeProvider.getDateTime());
+        timeValue.setN(dateTimeProvider.getDateTime());
         MinimalKeyValuePair < MinimalString, AttributeValue
                 > att1(HASH_KEY_NAME, deviceValue);
         MinimalKeyValuePair < MinimalString, AttributeValue
                 > att2(RANGE_KEY_NAME, timeValue);
+        MinimalKeyValuePair < MinimalString, AttributeValue
+                > att3(ATTRIBUTE_KEY_NAME, ATTRIBUTE_KEY_VALUE);
         MinimalKeyValuePair<MinimalString, AttributeValue> itemArray[] = { att1,
-                att2};
+                att2, att3};
 
         /* Set values for putItemInput. */
         putItemInput.setItem(MinimalMap < AttributeValue > (itemArray, 2));
