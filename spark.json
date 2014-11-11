@@ -1,6 +1,6 @@
 {
     "name": "AmazonDynamoDBClient",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "author": "Jinesh Varia <jvaria@amazon.com>",
     "license": "Apache 2.0 license",
     "description": "Amazon DynamoDB Client for Spark Core."
