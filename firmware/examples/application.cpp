@@ -1,5 +1,5 @@
 // This #include statement was automatically added by the Spark IDE.
-#include "AmazonDynamoDBClient/keys.h"
+#include "keys.h"
 #include "AmazonDynamoDBClient/AmazonDynamoDBClient.h"
 #include "AmazonDynamoDBClient/SparkAWSImplementations.h"
 #include "AmazonDynamoDBClient/AWSFoundationalTypes.h"
@@ -81,6 +81,9 @@ void loop() {
         AttributeValue deviceValue;
         deviceValue.setS(HASH_KEY_VALUE);
         AttributeValue timeValue;
+        AttributeValue aValue;
+        aValue.setS(ATTRIBUTE_KEY_VALUE);
+        
         /* Getting current time for Time attribute. */
         timeValue.setN(dateTimeProvider.getDateTime());
         MinimalKeyValuePair < MinimalString, AttributeValue
@@ -88,7 +91,7 @@ void loop() {
         MinimalKeyValuePair < MinimalString, AttributeValue
                 > att2(RANGE_KEY_NAME, timeValue);
         MinimalKeyValuePair < MinimalString, AttributeValue
-                > att3(ATTRIBUTE_KEY_NAME, ATTRIBUTE_KEY_VALUE);
+                > att3(ATTRIBUTE_KEY_NAME, aValue);
         MinimalKeyValuePair<MinimalString, AttributeValue> itemArray[] = { att1,
                 att2, att3};
 
